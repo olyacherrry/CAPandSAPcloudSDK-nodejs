@@ -26,6 +26,24 @@ modules:
     - name: srv-api      # required by consumers of CAP services (e.g. approuter)
       properties:
         srv-url: ${default-url}
+   requires:
+     - name: uaa
+     - name: dest
+  
+resources:
+- name: uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: my-uaa
+    service-plan: application
+- name: dest
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-name: my-dest
+    service-plan: lite
 
 
 

@@ -22,14 +22,10 @@ module.exports = cds.service.impl(async function () {
             //columns which we have declared in cds entity that we want to expose
             let columnsToSelect = ["BusinessPartner", "FirstName", "LastName"];
 
-            return await tx.emit({
-                query: SELECT.from(entity)
-                    .columns(columnsToSelect),
-                //For API Business Hub usage, we send custom APIKey header
-                headers: {
-                    "APIKey": "vc1oGwGmR07KUtEnRlxaVs7SLmYXk9y3"
-                }
-            })
+            return await tx.run(
+                SELECT.from(entity)
+                    .columns(columnsToSelect)
+            )
 
         } catch (err) {
             req.reject(err);
@@ -47,14 +43,10 @@ module.exports = cds.service.impl(async function () {
             //columns which we have declared in cds entity that we want to expose
             let columnsToSelect = ["BusinessPartner", "AddressID", "Country", "PostalCode", "CityName", "StreetName", "HouseNumber"];
 
-            return await tx.emit({
-                query: SELECT.from(entity)
-                    .columns(columnsToSelect),
-                //For API Business Hub usage, we send custom APIKey header
-                headers: {
-                    "APIKey": "vc1oGwGmR07KUtEnRlxaVs7SLmYXk9y3"
-                }
-            })
+            return await tx.run(
+                SELECT.from(entity)
+                    .columns(columnsToSelect)
+            )
 
         } catch (err) {
             req.reject(err);
