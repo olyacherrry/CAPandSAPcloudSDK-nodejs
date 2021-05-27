@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "addressmanagerui",
+        "id": "addressmanager1ui",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -11,7 +11,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
             "mainService": {
-                "uri": "address-manager/",
+                "uri": "/address-manager/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
@@ -73,44 +73,66 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "BusinessPartnerAddressesList",
-                    "target": "BusinessPartnerAddressesList"
+                    "name": "BusinessPartnersList",
+                    "target": "BusinessPartnersList"
                 },
                 {
-                    "pattern": "BusinessPartnerAddresses({key}):?query:",
-                    "name": "BusinessPartnerAddressesObjectPage",
-                    "target": "BusinessPartnerAddressesObjectPage"
-                }
+                    "pattern": "BusinessPartners({key}):?query:",
+                    "name": "BusinessPartnersObjectPage",
+                    "target": "BusinessPartnersObjectPage"
+                },
+                    {
+                        "pattern": "BusinessPartners({key})/to_BusinessPartnerAddress({key2}):?query:",
+                        "name": "BusinessPartnerAddressesObjectPage",
+                        "target": "BusinessPartnerAddressesObjectPage"
+                    }
             ],
             "targets": {
-                "BusinessPartnerAddressesList": {
+                "BusinessPartnersList": {
                     "type": "Component",
-                    "id": "BusinessPartnerAddressesList",
+                    "id": "BusinessPartnersList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "BusinessPartnerAddresses",
+                            "entitySet": "BusinessPartners",
                             "variantManagement": "Page",
                             "navigation": {
-                                "BusinessPartnerAddresses": {
+                                "BusinessPartners": {
                                     "detail": {
-                                        "route": "BusinessPartnerAddressesObjectPage"
+                                        "route": "BusinessPartnersObjectPage"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "BusinessPartnerAddressesObjectPage": {
+                "BusinessPartnersObjectPage": {
                     "type": "Component",
-                    "id": "BusinessPartnerAddressesObjectPage",
+                    "id": "BusinessPartnersObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "entitySet": "BusinessPartnerAddresses"
+                            "entitySet": "BusinessPartners",
+                                "navigation": {
+                                    "to_BusinessPartnerAddress": {
+                                        "detail": {
+                                            "route": "BusinessPartnerAddressesObjectPage"
+                                        }
+                                    }
+                                }
                         }
                     }
-                }
+                },
+                    "BusinessPartnerAddressesObjectPage": {
+                        "type": "Component",
+                        "id": "BusinessPartnerAddressesObjectPage",
+                        "name": "sap.fe.templates.ObjectPage",
+                        "options": {
+                            "settings": {
+                                "entitySet": "BusinessPartnerAddresses"
+                            }
+                        }
+                    }
             }
         },
         "contentDensities": {

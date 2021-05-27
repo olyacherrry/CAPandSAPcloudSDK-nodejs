@@ -27,9 +27,9 @@ modules:
       - addressmanagerui.zip
       name: addressmanagerui
       target-path: resources/
-- name: addressmanagerui
+- name: addressmanager1ui
   type: html5
-  path: app/address-manager-ui
+  path: app/address-manager1-ui
   build-parameters:
     build-result: dist
     builder: custom

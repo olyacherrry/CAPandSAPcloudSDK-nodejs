@@ -1,30 +1,31 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue May 25 2021 20:35:26 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Thu May 27 2021 08:01:56 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
 |**App Generator Version**<br>1.1.11|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V4|
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>/address-manager/
-|**Module Name**<br>address-manager-ui|
+|**Module Name**<br>address-manager1-ui|
 |**Application Title**<br>Address manager|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
 |**Enable Telemetry**<br>True|
-|**Main Entity**<br>BusinessPartnerAddresses|
+|**Main Entity**<br>BusinessPartners|
+|**Navigation Entity**<br>to_BusinessPartnerAddress|
 
-## address-manager-ui
+## address-manager1-ui
 
-A Fiori application for managing the addresses of Business Partners.
+A Fiori application.
 
 ### Starting the generated app
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply start your CAP project and navigate to the following location in your browser:
 
-http://localhost:4004/address-manager-ui/webapp/index.html
+http://localhost:4004/address-manager1-ui/webapp/index.html
 
 #### Pre-requisites:
 

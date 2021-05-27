@@ -1,2 +1,2 @@
 
-using from './address-manager-ui/annotations';
+using from './address-manager1-ui/annotations';

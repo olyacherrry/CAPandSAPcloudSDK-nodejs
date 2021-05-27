@@ -40,8 +40,44 @@ const prepareResult = (address) => {
     }
 }
 
+const constructBusinessPartnerFilter = (req) => {
+    if (req && req.params && req.params[0]) {
+        return {
+            'BusinessPartner': req.params[0].BusinessPartner
+        }
+    } else if (req && req._.odataReq._queryOptions && req._.odataReq._queryOptions.$search) {
+        const searchValue = JSON.parse(req._.odataReq._queryOptions.$search);
+        return `BusinessPartner = ${searchValue} or FirstName = ${searchValue} or LastName = ${searchValue}`
+    }
+}
+
+const constructBusinessPartnerAddressFilter = (req) => {
+    if (req && req.params && req.params[0]) {
+        return req.params[0].AddressID ? {
+            'BusinessPartner': req.params[0].BusinessPartner,
+            'AddressID': req.params[0].AddressID
+        } : {
+                'BusinessPartner': req.params[0].BusinessPartner
+            }
+    }
+}
+
+const buildQuery = (entity, columns, filter) => {
+    if (filter) {
+        return SELECT.from(entity)
+            .columns(columns)
+            .where(filter)
+    } else {
+        return SELECT.from(entity)
+            .columns(columns)
+    }
+}
+
 module.exports = {
     buildAddressForCreate,
     buildAddressForUpdate,
-    prepareResult
+    prepareResult,
+    constructBusinessPartnerAddressFilter,
+    constructBusinessPartnerFilter,
+    buildQuery
 }
