@@ -1,35 +1,42 @@
-## Generated mta.yaml based on template version 0.4.0
-## appName = cap-adman
-## language=nodejs; multitenant=false
-## approuter=
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: cap-adman
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
-parameters:
-  enable-parallel-deployments: true
-   
-build-parameters:
-  before-all:
-   - builder: custom
-     commands:
-      - npm install --production
-      - npx -p @sap/cds-dk cds build --production
-
 modules:
- # --------------------- SERVER MODULE ------------------------
- - name: cap-adman-srv
- # ------------------------------------------------------------
-   type: nodejs
-   path: gen/srv
-   provides:
-    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-      properties:
-        srv-url: ${default-url}
-   requires:
-     - name: uaa
-     - name: dest
-  
+- name: cap-adman-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: uaa
+  - name: dest
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+- name: cap-adman-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: cap-adman-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - addressmanagerui.zip
+      name: addressmanagerui
+      target-path: resources/
+- name: addressmanagerui
+  type: html5
+  path: app/address-manager-ui
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa
   type: org.cloudfoundry.managed-service
@@ -41,11 +48,33 @@ resources:
 - name: dest
   type: org.cloudfoundry.managed-service
   parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
     service: destination
     service-name: my-dest
     service-plan: lite
-
-
-
-
-
+- name: cap-adman-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: cap-adman-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install --production
+    - npx -p @sap/cds-dk cds build --production
