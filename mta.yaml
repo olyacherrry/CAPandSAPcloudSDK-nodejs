@@ -28,6 +28,14 @@ modules:
       - bp.zip
       name: bp
       target-path: resources/
+    - artifacts:
+      - bags.zip
+      name: bags
+      target-path: resources/
+    - artifacts:
+      - bags1.zip
+      name: bags1
+      target-path: resources/
 - name: project1bags
   type: html5
   path: project1-bags
