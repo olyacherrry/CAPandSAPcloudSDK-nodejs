@@ -25,7 +25,6 @@ module.exports = cds.service.impl(async function () {
             return await tx.emit({
                 query: SELECT.from(entity)
                     .columns(columnsToSelect),
-                //For API Business Hub usage, we send custom APIKey header
                 headers: {
                     "APIKey": "vc1oGwGmR07KUtEnRlxaVs7SLmYXk9y3"
                 }
@@ -50,7 +49,6 @@ module.exports = cds.service.impl(async function () {
             return await tx.emit({
                 query: SELECT.from(entity)
                     .columns(columnsToSelect),
-                //For API Business Hub usage, we send custom APIKey header
                 headers: {
                     "APIKey": "vc1oGwGmR07KUtEnRlxaVs7SLmYXk9y3"
                 }

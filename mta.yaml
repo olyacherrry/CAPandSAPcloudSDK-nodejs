@@ -36,6 +36,10 @@ modules:
       - bags1.zip
       name: bags1
       target-path: resources/
+    - artifacts:
+      - addressmanagerui.zip
+      name: addressmanagerui
+      target-path: resources/
 - name: project1bags
   type: html5
   path: project1-bags
@@ -49,6 +53,16 @@ modules:
 - name: bp
   type: html5
   path: app/bp
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: addressmanagerui
+  type: html5
+  path: app/address-manager-ui
   build-parameters:
     build-result: dist
     builder: custom

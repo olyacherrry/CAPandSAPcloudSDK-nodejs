@@ -58,6 +58,7 @@
   "sapux": [
     "app/sandbox-bp",
     "app/bp",
-    "app/bp"
+    "app/bp",
+    "app/address-manager-ui"
   ]
 }

@@ -1,0 +1,1 @@
+using AddressManagerService as service from '../../srv/address-manager-service';
