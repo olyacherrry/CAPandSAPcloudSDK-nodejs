@@ -5,40 +5,30 @@ const {
     buildAddressForCreate,
     buildAddressForUpdate,
     prepareResult,
-    constructBusinessPartnerAddressFilter,
-    constructBusinessPartnerFilter,
-    buildQuery
+    prepareBody
 } = require('./helpers')
 
-const { ENTITIES } = require('./constants');​
-
-
-//here is the service implementation
-//here are the service handlers
 module.exports = cds.service.impl(async function () {
 
-    //these are the entities from address-manager-service.cds file
+    //entities from address-manager-service.cds file
     const { BusinessPartners, BusinessPartnerAddresses } = this.entities;
 
-    //cds will connect to the external service API_BUSINESS_PARTNER
-    //which is declared in package.json in the cds requires section
+    //external service  declared in package.json in the cds requires section
     const service = await cds.connect.to('API_BUSINESS_PARTNER');
 
-    //this event handler is triggered when we call
     //GET http://localhost:4004/address-manager/BusinessPartners
     this.on('READ', BusinessPartners, async (req) => {
         try {
             const tx = service.transaction();
 
-            //entity name as it is in the .csn file for the service API_BUSINESS_PARTNER
+            //entity name as it is in the .csn  API_BUSINESS_PARTNER
             let entity = 'A_BusinessPartner';
             //columns which we have declared in cds entity that we want to expose
             let columnsToSelect = ["BusinessPartner", "FirstName", "LastName"];
 
             //if there is a parameter
             if (req.params[0]) {
-                //If you look in the .csn file you will see that
-                //the key for our BusinessPartner entity is BusinessPartner column
+
                 const businessPartner = req.params[0].BusinessPartner;
                 return await tx.run(
                     SELECT.from(entity)
@@ -58,7 +48,7 @@ module.exports = cds.service.impl(async function () {
         }
     });
 
-    //this event handler is triggered when we call
+
     //GET http://localhost:4004/address-manager/BusinessPartnerAddresses
     this.on('READ', BusinessPartnerAddresses, async (req) => {
         try {
@@ -97,7 +87,6 @@ module.exports = cds.service.impl(async function () {
         }
     });
 
-    //this event handler is triggered when we call
     //POST http://localhost:4004/address-manager/BusinessPartnerAddresses
     this.on('CREATE', BusinessPartnerAddresses, async (req) => {
         try {
@@ -112,7 +101,6 @@ module.exports = cds.service.impl(async function () {
         }
     });
 
-    //this event handler is triggered when we call
     //PUT http://localhost:4004/address-manager/BusinessPartnerAddresses(BusinessPartner='',AddressID='')
     this.on('UPDATE', BusinessPartnerAddresses, async (req) => {
         try {
@@ -127,7 +115,6 @@ module.exports = cds.service.impl(async function () {
         }
     });
 
-    //this event handler is triggered when we call
     //DELETE http://localhost:4004/address-manager/BusinessPartnerAddresses(BusinessPartner='',AddressID='')
     this.on('DELETE', BusinessPartnerAddresses, async (req) => {
         try {
